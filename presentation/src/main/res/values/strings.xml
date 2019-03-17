@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Reddit</string>
+    <string name="main_label_posted_by">Posted by %1s, %2s</string>
+    <string name="main_label_share">Share</string>
+    <string name="main_label_comments">Comments</string>
+    <string name="main_label_rating">Rating</string>
+    <string name="dialog_label_top_post_from">Top post from</string>
+    <string name="dialog_label_all">All</string>
+    <string name="dialog_label_hour">Hour</string>
+    <string name="dialog_label_24_hours">24 hours</string>
+    <string name="dialog_label_week">Week</string>
+    <string name="dialog_label_month">Month</string>
+    <string name="dialog_label_year">Year</string>
+    <string name="menu_filter">Filter</string>
+    <string name="chooser_share_title">Share post</string>
+    <string name="general_error_something_went_wrong">Something went wrong</string>
+    <string name="general_button_tap_to_retry">Tap to retry</string>
+</resources>

@@ -1,0 +1,109 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion rootProject.compileSdk
+    buildToolsVersion rootProject.buildTools
+
+    defaultConfig {
+        minSdkVersion rootProject.minSdk
+        targetSdkVersion rootProject.targetSdk
+        versionCode 1
+        versionName "1.0"
+
+        multiDexEnabled true
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            buildConfigField 'String', 'SCHEME', "\"https://\""
+            buildConfigField 'String', 'HOST', "\"www.reddit.com\""
+        }
+
+        debug {
+            minifyEnabled false
+            buildConfigField 'String', 'SCHEME', "\"https://\""
+            buildConfigField 'String', 'HOST', "\"www.reddit.com\""
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    kapt {
+        correctErrorTypes = true
+        generateStubs = true
+        javacOptions {
+            // Increase the max count of errors from annotation processors.
+            // Default is 100.
+            option("-Xmaxerrs", 1000)
+        }
+    }
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation project(':domain')
+
+    /* Dagger */
+    kapt "com.google.dagger:dagger-compiler:$daggerVersion"
+    implementation "com.google.dagger:dagger:$daggerVersion"
+    kaptTest "com.google.dagger:dagger-compiler:$daggerVersion"
+
+    /* Circular ImageView */
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+
+    /* app_compat */
+    implementation "androidx.multidex:multidex:2.0.1"
+    implementation "androidx.constraintlayout:constraintlayout:1.1.3"
+    implementation "androidx.fragment:fragment:1.0.0"
+    implementation "androidx.legacy:legacy-support-core-ui:1.0.0"
+    implementation "androidx.appcompat:appcompat:1.0.2"
+    implementation "androidx.cardview:cardview:1.0.0"
+    implementation "androidx.recyclerview:recyclerview:1.0.0"
+    implementation "com.google.android.material:material:1.0.0"
+    implementation "androidx.browser:browser:1.0.0"
+
+    /* Architecture Components */
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
+    implementation "androidx.lifecycle:lifecycle-common-java8:2.0.0"
+    kapt "androidx.lifecycle:lifecycle-compiler:2.0.0"
+    testImplementation "androidx.arch.core:core-testing:2.0.0"
+
+    /* Glide */
+    implementation "com.github.bumptech.glide:glide:4.9.0"
+    implementation "com.github.bumptech.glide:annotations:4.9.0"
+    kapt "com.github.bumptech.glide:compiler:4.9.0"
+
+    // -- Extra --
+    // extra activity injection
+    implementation "com.f2prateek.dart:dart:2.0.3"
+    kapt "com.f2prateek.dart:dart-processor:2.0.3"
+    implementation "com.f2prateek.dart:henson:2.0.3"
+    kapt "com.f2prateek.dart:henson-processor:2.0.3"
+    // extra fragment injection
+    implementation "com.hannesdorfmann.fragmentargs:annotation:3.0.2"
+    kapt "com.hannesdorfmann.fragmentargs:processor:3.0.2"
+    // auto injection for save instance
+    implementation "com.evernote:android-state:1.4.1"
+    kapt "com.evernote:android-state-processor:1.4.1"
+
+    /* Unit Test */
+    testImplementation "junit:junit:$junitVirsion"
+    // mockito
+    testImplementation "org.mockito:mockito-inline:$mockitoVirsion"
+    testImplementation "com.nhaarman:mockito-kotlin:$mockitoKotlinVirsion"
+}

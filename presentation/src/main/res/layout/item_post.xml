@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.reddit.features.main.MainViewModel" />
+
+        <variable
+            name="post"
+            type="com.reddit.domain.model.Post" />
+
+        <variable
+            name="imageUri"
+            type="String" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        bind:cardElevation="3dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.onPostClicked(post)}"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/header"
+                layout="@layout/item_post_header"
+                bind:post="@{post}" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:maxLines="3"
+                android:text="@{post.title}"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                tools:text="Some Title" />
+
+            <com.reddit.widget.AspectRatioImageView
+                android:id="@+id/contentImg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                bind:img_uri="@{imageUri}"
+                tools:layout_height="200dp" />
+
+            <include
+                android:id="@+id/footer"
+                layout="@layout/item_post_footer"
+                bind:post="@{post}"
+                bind:viewModel="@{viewModel}" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>
